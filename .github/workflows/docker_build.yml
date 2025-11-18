@@ -17,3 +17,6 @@ jobs:
       run: |
         docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
         docker push chkdn3003/order-server-app:v1.0.0
+    # - name: run container without recreating app and pull from docker hub
+    #   run: docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build
+
