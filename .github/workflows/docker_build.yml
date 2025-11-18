@@ -16,5 +16,5 @@ jobs:
     - name: push image to docker hub
       run: |
         docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
-        docker push order-server_app
+        docker push chkdn3003/order-server-app:latest
 
