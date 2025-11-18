@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker-compose build
+      run: docker-compose -f ./order-server/docker-compose.yml build
     - name: push image to docker hub
       run: |
         docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
