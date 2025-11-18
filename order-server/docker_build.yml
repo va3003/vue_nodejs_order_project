@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on:
+  [ "workflow_dispatch" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker-compose build
+    - name: push image to docker hub
+      run: |
+        docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
+        docker push order-server_app
+
