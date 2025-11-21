@@ -36,4 +36,6 @@ jobs:
             node-version: '18.x'
       - name: Run script in subdir
         working-directory: ./order-server
+        run: npm install
+      - name: Run Playwright tests
         run: npx playwright test
