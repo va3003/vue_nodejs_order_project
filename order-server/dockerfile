@@ -1,5 +1,7 @@
 FROM node:lts-alpine
 
+RUN echo "Inside docker file"
+
 WORKDIR /app
 
 COPY . /app
