@@ -38,8 +38,11 @@ jobs:
         working-directory: ./order-server
         run: echo "Running script in subdir $(pwd)"
       - name: Install dependencies
+        working-directory: ./order-server
         run: npm install && npm install playwright@latest
       - name: Check playwright version
+        working-directory: ./order-server
         run: npx playwright --version
       - name: Run Playwright tests
+        working-directory: ./order-server
         run: npx playwright test
