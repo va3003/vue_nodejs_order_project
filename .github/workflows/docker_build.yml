@@ -25,7 +25,7 @@ jobs:
       steps: 
       - uses: actions/checkout@v4
       - name: download docker image from docker hub
-        run: 
+        run: |
           docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
           docker pull chkdn3003/order-server-app:v1.0.0
       - name: run container without recreating app and pull from docker hub
