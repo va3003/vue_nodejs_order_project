@@ -34,4 +34,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
             node-version: '18.x'
-      - run: npx playwright test
+      - name: Run script in subdir
+        working-directory: ./order-server
+        run: npx playwright test
