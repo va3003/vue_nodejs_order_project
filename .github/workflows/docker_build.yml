@@ -20,4 +20,29 @@ jobs:
     - name: Pull and Run Docker Image
       run: |
         docker pull chkdn3003/order-server-app:v1.0.0
-        docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build
+        docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build && exit
+  test:
+    depends-on: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Use node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Run script in subdir
+      working-directory: ./order-server
+      run: echo "Running script in subdir $(pwd)"
+    - name: Install dependencies
+      working-directory: ./order-server
+      run: npm install && npm install playwright@latest
+    - name: Check playwright version
+      working-directory: ./order-server
+      run: npx playwright --version
+    - name: Run Playwright tests
+      working-directory: ./order-server
+      run: npx playwright test
