@@ -15,7 +15,7 @@ jobs:
       uses: docker/login-action@v3
       with:
         username: chkdn3003
-        password: ${{ secrets.DOCKER_HUB_TOKEN} }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
     - name: Pull and Run Docker Image
       run: |
