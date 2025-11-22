@@ -22,7 +22,7 @@ jobs:
         docker pull chkdn3003/order-server-app:v1.0.0
         docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build && exit
   test:
-    depends-on: deploy
+    needs: deploy
     runs-on: ubuntu-latest
 
     steps:
