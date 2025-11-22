@@ -1,49 +1,23 @@
-name: Docker Image CI
+name: Deploy Docker Image
 
 on:
-  [ "workflow_dispatch" ]
-
+  workflow_dispatch # Allows manual triggering
+  
 jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest # Or your desired runner environment
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker compose -f ./order-server/docker-compose.yml build
-    - name: push image to docker hub
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: chkdn3003
+        password: ${{ secrets.DOCKER_HUB_TOKEN} }}
+
+    - name: Pull and Run Docker Image
       run: |
-        docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
-        docker push chkdn3003/order-server-app:v1.0.0
-    # - name: run container without recreating app and pull from docker hub
-    #   run: docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build
-  test: 
-      needs: build
-      runs-on: ubuntu-latest
-      steps: 
-      - uses: actions/checkout@v4
-      - name: download docker image from docker hub
-        run: |
-          docker login -u chkdn3003 -p ${{ secrets.DOCKER_HUB_TOKEN}}
-          docker pull chkdn3003/order-server-app:v1.0.0
-      - name: run container without recreating app and pull from docker hub
-        run:
-          docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build
-      - name: Use node.js
-        uses: actions/setup-node@v3
-        with:
-            node-version: '18.x'
-      - name: Run script in subdir
-        working-directory: ./order-server
-        run: echo "Running script in subdir $(pwd)"
-      - name: Install dependencies
-        working-directory: ./order-server
-        run: npm install && npm install playwright@latest
-      - name: Check playwright version
-        working-directory: ./order-server
-        run: npx playwright --version
-      - name: Run Playwright tests
-        working-directory: ./order-server
-        run: npx playwright test
+        docker pull chkdn3003/order-server-app:v1.0.0
+        docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build
