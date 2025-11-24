@@ -20,7 +20,7 @@ jobs:
     - name: Pull and Run Docker Image
       run: |
         docker pull chkdn3003/order-server-app:v1.0.0
-        docker compose -f ./order-server/docker-compose.yml up --no-recreate --no-build && exit
+        docker compose -f ./order-server/docker-compose.yml up -d --no-recreate --no-build && exit
   test:
     needs: deploy
     runs-on: ubuntu-latest
